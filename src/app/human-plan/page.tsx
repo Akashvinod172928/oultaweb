@@ -221,14 +221,11 @@ export default function HumanPlanPage() {
               Our History
             </h2>
             <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
-              Our greatest technology has always been each other.
+              Humanity's greatest technology has always been cooperation.
             </h3>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                Humanity did not become the dominant species because we were the strongest.
-              </p>
-              <p>
-                We survived because we learned to cooperate.
+                We survived not by being the strongest, but by working together. Families became tribes, communities, and civilizations.
               </p>
               
               <div className="border border-border-subtle bg-background-secondary p-6 rounded-none my-6 flex flex-col space-y-2 font-mono text-xs">
@@ -250,7 +247,7 @@ export default function HumanPlanPage() {
               </div>
 
               <p>
-                For thousands of years, our greatest advantage was our ability to work together.
+                Cooperation is how Homo sapiens survived.
               </p>
             </div>
           </motion.article>
@@ -285,18 +282,15 @@ export default function HumanPlanPage() {
 
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                Communism. Capitalism. Everything in between.
+                Communism, Capitalism, and everything in between rely on a single assumption:
               </p>
-              <p>
-                Different systems built on the same assumption:
-              </p>
-              <blockquote className="border-l-2 border-text-primary bg-background-secondary pl-6 my-6 py-4 max-w-2xl">
-                <p className="text-lg md:text-xl italic text-text-primary font-semibold leading-relaxed">
+              <blockquote className="border-l-2 border-text-primary bg-background-secondary pl-6 my-4 py-3 max-w-2xl">
+                <p className="text-base italic text-text-primary font-semibold leading-relaxed">
                   &ldquo;Human labor creates value.&rdquo;
                 </p>
               </blockquote>
               <p>
-                For generations, this assumption shaped governments, economies, and societies across the world. Today, that assumption is beginning to change.
+                Today, that assumption is breaking.
               </p>
             </div>
           </motion.article>
@@ -319,22 +313,14 @@ export default function HumanPlanPage() {
             </h3>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                Artificial Intelligence can automate labor.
+                AI automates labor. AGI will automate intelligence itself.
               </p>
               <p>
-                Artificial General Intelligence may automate intelligence itself.
+                The question is no longer who owns the factory, but who owns the intelligence infrastructure of the future.
               </p>
               <p>
-                The question is no longer who owns the factory.
+                As intelligence becomes abundant, power shifts to those who control the compute and the models.
               </p>
-              <p>
-                The question is who owns the intelligence infrastructure of the future.
-              </p>
-              <blockquote className="border-l-2 border-text-primary bg-background-secondary pl-6 my-6 py-4 max-w-2xl">
-                <p className="text-base italic text-text-primary font-medium leading-relaxed">
-                  As intelligence becomes abundant, power naturally shifts toward those who control it.
-                </p>
-              </blockquote>
             </div>
           </motion.article>
 
@@ -368,16 +354,7 @@ export default function HumanPlanPage() {
 
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                AI is not the threat. Concentrated control is.
-              </p>
-              <p>
-                When a small group controls intelligence infrastructure, they gain unprecedented influence over information, economies, and public life.
-              </p>
-              <p>
-                This is Techno-Fascism.
-              </p>
-              <p className="font-semibold text-text-primary">
-                Not government control. Not corporate control. But infrastructure control.
+                AI is not the threat; concentrated infrastructure control is. When a small group controls intelligence systems, they gain unprecedented power over public life. This is Techno-Fascism.
               </p>
             </div>
 
@@ -386,22 +363,22 @@ export default function HumanPlanPage() {
                 { 
                   index: "01",
                   title: "Algorithmic Control", 
-                  desc: "Recommendation engines shape public opinion and optimize for attention retention, weakening local civil discourse."
+                  desc: "Recommendation engines shape public opinion and optimize for attention retention."
                 },
                 { 
                   index: "02",
                   title: "Economic Displacement", 
-                  desc: "Systemic automation of knowledge work removes the necessity for human labor, creating dependence on central systems."
+                  desc: "Systemic automation of knowledge work removes the necessity for human labor."
                 },
                 { 
                   index: "03",
                   title: "Data Exploitation", 
-                  desc: "Centralized platforms record behavioral exhaust to build predictive systems, converting user data into sovereign capital."
+                  desc: "Centralized platforms record behavioral exhaust to build predictive models."
                 },
                 { 
                   index: "04",
                   title: "Digital Gatekeeping", 
-                  desc: "A small number of infrastructure providers manage identity, transaction pathways, and access rules for the global web."
+                  desc: "A small number of infrastructure providers manage identity and global transactions."
                 }
               ].map((block, idx) => (
                 <div key={idx} className="bg-background-primary border border-border-subtle hover:border-text-primary rounded-none p-6 flex flex-col space-y-3 transition-colors duration-300">
@@ -416,10 +393,7 @@ export default function HumanPlanPage() {
 
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal pt-4">
               <p>
-                The techno-fascist does not need an army. They need servers.
-              </p>
-              <p>
-                They do not need prisons. They need algorithms.
+                The techno-fascist needs servers, not armies. They need algorithms, not prisons.
               </p>
             </div>
           </motion.article>
@@ -454,23 +428,15 @@ export default function HumanPlanPage() {
 
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                Impactism is a framework built on a simple belief:
-              </p>
-              <blockquote className="border-l-2 border-[#4F46E5] bg-background-secondary pl-6 my-4 py-3">
-                <p className="text-base italic text-text-primary font-semibold">
-                  Technology should serve humanity. Humanity should not serve technology.
-                </p>
-              </blockquote>
-              <p>
-                Impactism moves beyond the old left-right political spectrum and focuses on citizen sovereignty, community coordination, verified impact, and accountable technology.
+                Impactism is a coordination framework built on citizen sovereignty and local trust. It bypasses old ideological lines:
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
               {[
                 { title: "People over algorithms", desc: "Decisions made by humans, supported by tools." },
                 { title: "Community over isolation", desc: "Local networks built on trust and shared work." },
-                { title: "Impact over passive consumption", desc: "Rewarding active creation over passive distraction." }
+                { title: "Impact over consumption", desc: "Rewarding active creation over passive distraction." }
               ].map((item, idx) => (
                 <div key={idx} className="bg-background-secondary border border-border-subtle p-5 rounded-none flex flex-col space-y-2">
                   <span className="font-bold text-xs text-text-primary">{item.title}</span>
@@ -479,8 +445,8 @@ export default function HumanPlanPage() {
               ))}
             </div>
 
-            <p className="text-sm text-text-secondary leading-relaxed pt-2">
-              Technology as a tool, not a master.
+            <p className="text-sm text-text-secondary leading-relaxed pt-2 font-mono text-xs italic">
+              Technology should serve humanity, not humanity technology.
             </p>
           </motion.article>
 
@@ -538,32 +504,8 @@ export default function HumanPlanPage() {
 
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                At the center is Oulta.
+                At the center is Oulta. Citizens identify problems, NGOs provide expertise, and Companies provide resources. Together they coordinate to turn concern into action.
               </p>
-              <ul className="space-y-2 list-none pl-0">
-                <li className="flex items-start space-x-2">
-                  <span className="text-accent-red font-mono text-xs font-bold pt-1">▪</span>
-                  <span><strong>Citizens</strong> identify problems.</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#4F46E5] font-mono text-xs font-bold pt-1">▪</span>
-                  <span><strong>NGOs</strong> provide expertise.</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-accent-indigo font-mono text-xs font-bold pt-1">▪</span>
-                  <span><strong>Companies</strong> provide resources.</span>
-                </li>
-              </ul>
-              <p>
-                Communities create action. Together they create measurable impact.
-              </p>
-              <p className="font-semibold text-text-primary mt-6">
-                The goal is simple:
-              </p>
-              <div className="border-l border-border-subtle pl-4 font-mono text-xs text-text-secondary space-y-1 py-1">
-                <p>Turn concern into coordination.</p>
-                <p>Turn coordination into impact.</p>
-              </div>
             </div>
           </motion.article>
 
@@ -585,41 +527,32 @@ export default function HumanPlanPage() {
             </h3>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                India is home to the world's largest democracy.
-              </p>
-              <p>
-                Its greatest strength is not its government. Not its corporations. Not its technology.
-              </p>
-              <p className="text-text-primary font-bold">
-                Its people.
-              </p>
-              <p>
-                Impactism begins with a simple mission:
+                India's greatest strength is its people. Impactism begins with a simple mission: rebuild civic participation and solve local problems directly.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
                 <div className="border border-border-subtle p-5 rounded-none bg-[#F8F9FA]">
                   <span className="font-mono text-[10px] text-text-muted block uppercase mb-1">Step 01</span>
                   <span className="font-bold text-xs text-text-primary block mb-1">Rebuild Civic Participation</span>
-                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Empowering ordinary citizens to drive public conversation.</p>
+                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Empowering citizens to drive public conversation.</p>
                 </div>
                 <div className="border border-border-subtle p-5 rounded-none bg-[#F8F9FA]">
                   <span className="font-mono text-[10px] text-text-muted block uppercase mb-1">Step 02</span>
                   <span className="font-bold text-xs text-text-primary block mb-1">Strengthen Communities</span>
-                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Connecting local groups around shared, immediate objectives.</p>
+                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Connecting local groups around shared objectives.</p>
                 </div>
                 <div className="border border-border-subtle p-5 rounded-none bg-[#F8F9FA]">
                   <span className="font-mono text-[10px] text-text-muted block uppercase mb-1">Step 03</span>
                   <span className="font-bold text-xs text-text-primary block mb-1">Solve Local Problems</span>
-                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Tackling hyper-local infrastructure and societal challenges.</p>
+                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Tackling hyper-local infrastructure challenges.</p>
                 </div>
                 <div className="border border-border-subtle p-5 rounded-none bg-[#F8F9FA]">
                   <span className="font-mono text-[10px] text-text-muted block uppercase mb-1">Step 04</span>
                   <span className="font-bold text-xs text-text-primary block mb-1">Create Measurable Impact</span>
-                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Using transparent metrics to reward civic progress.</p>
+                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Using transparent metrics to reward progress.</p>
                 </div>
               </div>
               <p className="font-mono text-xs text-text-muted italic pt-2">
-                One stand at a time. One community at a time. One district at a time.
+                One stand, one community, and one district at a time.
               </p>
             </div>
           </motion.article>
@@ -642,25 +575,13 @@ export default function HumanPlanPage() {
             </h3>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                A future where power becomes increasingly centralized.
+                A future where power centralizes completely, citizens become spectators, and algorithms rule.
               </p>
-              <p>
-                A future where citizens become spectators.
-              </p>
-              <p>
-                A future where communities lose influence.
-              </p>
-              <p>
-                A future where algorithms become more powerful than people.
-              </p>
-              <blockquote className="border-l-2 border-accent-red bg-[#FFF5F5] pl-6 my-6 py-4 max-w-2xl">
-                <p className="text-lg md:text-xl italic text-accent-red font-bold leading-relaxed">
+              <blockquote className="border-l-2 border-accent-red bg-[#FFF5F5] pl-6 my-4 py-3 max-w-2xl">
+                <p className="text-base italic text-accent-red font-bold leading-relaxed">
                   &ldquo;Techno-Fascism is not inevitable. But neither is freedom.&rdquo;
                 </p>
               </blockquote>
-              <p>
-                The future depends on what we build together.
-              </p>
             </div>
           </motion.article>
 
@@ -686,13 +607,10 @@ export default function HumanPlanPage() {
                 Techno-Fascism is a global threat to human sovereignty. But the solution can only come from India.
               </p>
               <p>
-                Right now, 1.5 billion people are feeding the algorithms of global tech monopolies, exporting our data to build the very infrastructure used to control us. We are fueling the rise of systems that centralize power and make human labor obsolete.
+                Right now, 1.5 billion people are feeding the algorithms of global tech monopolies, exporting our data to build the very infrastructure used to control us.
               </p>
               <p>
-                India must lead the transition. By redirecting the collective coordination of 1.5 billion citizens, we can build a decentralized future of civic action and human sovereignty.
-              </p>
-              <p className="text-text-primary font-bold pt-4">
-                The future of humanity belongs to those who stand together. Let us build it here.
+                By redirecting the coordination of 1.5 billion citizens, we can build a sovereign, decentralized future. Let us build it here.
               </p>
             </div>
           </motion.article>
@@ -715,12 +633,9 @@ export default function HumanPlanPage() {
             </h3>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                Agriculture. Industry. The Internet. Artificial Intelligence. Each transformed civilization.
+                Agriculture, Industry, the Internet, and AI each transformed civilization. The next transformation is not technological; it is human.
               </p>
-              <p>
-                The next transformation is not technological. It is human.
-              </p>
-              <blockquote className="border-l-2 border-[#4F46E5] bg-background-secondary pl-6 my-6 py-4 max-w-2xl">
+              <blockquote className="border-l-2 border-[#4F46E5] bg-background-secondary pl-6 my-4 py-3 max-w-2xl">
                 <p className="text-base italic text-text-primary font-semibold leading-relaxed">
                   The convergence of innovation, welfare, and power around a single purpose: Human progress.
                 </p>
