@@ -42,14 +42,14 @@ export default function HumanPlanPage() {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+            if (entry.isIntersecting) {
               setActiveSection(item.id);
             }
           });
         },
         { 
-          rootMargin: "-25% 0px -55% 0px", // Focus viewport center
-          threshold: [0.15]
+          rootMargin: "-20% 0px -60% 0px", // Focus on upper-middle scroll area
+          threshold: 0
         }
       );
       
@@ -157,18 +157,18 @@ export default function HumanPlanPage() {
             </h2>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                We are living through a fundamental realignment of human civilization. The rapid transformation driven by artificial intelligence is reshaping the coordinates of labor, capital, and resource distribution.
+                We are living through a massive shift in human history. Artificial intelligence is changing how we work, create value, and distribute resources.
               </p>
               <p>
-                As machines assume complex cognitive workflows, job displacement is no longer a localized corporate variable—it is a structural reality. This shift occurs in a landscape already strained by global instability and ecological volatility, exposing the limitations of traditional civic systems designed for a different era.
+                As machines take over cognitive tasks, job automation is no longer a future threat—it is today's reality. Traditional systems, designed for a physical labor economy, can no longer sustain us.
               </p>
               <blockquote className="border-l-2 border-text-primary bg-background-secondary pl-6 my-6 py-4 max-w-2xl">
                 <p className="text-lg md:text-xl italic text-text-primary font-normal leading-relaxed">
-                  &ldquo;We face a structural transition. When intelligence becomes abundant, the models that linked human survival to cognitive labor collapse.&rdquo;
+                  &ldquo;We face a structural transition. When intelligence becomes cheap and abundant, the systems linking human survival to labor collapse.&rdquo;
                 </p>
               </blockquote>
               <p>
-                This is not a technological question alone. It is a structural challenge to human coordination.
+                This is not just a technology problem. It is a challenge of how humans organize and work together.
               </p>
             </div>
           </motion.article>
@@ -188,10 +188,10 @@ export default function HumanPlanPage() {
             </h2>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                For over two centuries, modern political coordination operated within a singular conceptual spectrum: the tension between <strong>Communism</strong> and <strong>Capitalism</strong>.
+                For over two hundred years, politics existed on a single line: the struggle between <strong>Communism</strong> and <strong>Capitalism</strong>.
               </p>
               <p>
-                Though structurally opposed, both systems shared a foundational axiom: they assumed that humans controlled the means of production through labor. Communism focused on state ownership of labor; Capitalism prioritized private capital coordination of labor.
+                While opposite, both systems relied on the same assumption: humans had to work to produce value. Communism wanted the state to run this labor; Capitalism wanted private markets to coordinate it.
               </p>
               
               <div className="relative w-full overflow-hidden rounded-2xl border border-border-subtle bg-[#F8F9FA] p-3 my-6 shadow-sm hover:shadow-md hover:border-text-primary transition-all duration-300">
@@ -206,7 +206,7 @@ export default function HumanPlanPage() {
               </div>
 
               <p>
-                When machine intelligence performs both labor execution and coordination logic, the human worker is removed from the equation, rendering the traditional spectrum obsolete.
+                As AI begins to manage both production and organization, these old models—which are tied entirely to human labor—no longer hold the answers we need.
               </p>
             </div>
           </motion.article>
@@ -226,11 +226,10 @@ export default function HumanPlanPage() {
             </h2>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                Artificial intelligence is not merely a tool for optimization. It shifts the foundation beneath our political and economic institutions.
+                AI changes who holds the cards. Democracy has historically relied on taxing human labor to fund public needs, but as machines take on more roles, that leverage disappears.
               </p>
-
               <p>
-                Traditional social democracies distributed resource ownership by taxing labor income. When labor is automated, this distribution loop breaks. Power concentrates around the physical server grids, models, and data arrays—leaving citizens without systemic leverage.
+                Power is shifting toward the few who own the compute, the models, and the data. Unless we change course, the average person loses their seat at the table.
               </p>
             </div>
           </motion.article>
@@ -309,7 +308,7 @@ export default function HumanPlanPage() {
           >
             <span className="text-[10px] font-mono tracking-widest text-accent-red uppercase">Section 05</span>
             <h2 className="text-4xl md:text-5xl font-bold text-text-primary leading-none tracking-tight max-w-xl">
-              If technology concentrates power, humanity needs a new framework.
+              We choose a new path: Citizen-led, technology-enabled.
             </h2>
             
             <div className="grid grid-cols-3 gap-4 max-w-md w-full my-4 text-xs font-semibold uppercase tracking-wider font-mono">
@@ -319,7 +318,7 @@ export default function HumanPlanPage() {
             </div>
 
             <p className="text-sm text-text-secondary leading-relaxed max-w-xl font-normal">
-              We do not advocate for technophobia or structural dependency. We assert the primacy of citizen organization, civic participation, and collective action to align abundance with human sovereignty.
+              We aren't fighting technology; we are reclaiming it. By focusing on direct community action, we ensure that the digital future works for all people, not just a few owners.
             </p>
           </motion.article>
 
@@ -334,11 +333,11 @@ export default function HumanPlanPage() {
           >
             <span className="text-[10px] font-mono tracking-widest text-accent-indigo uppercase">Section 06</span>
             <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              Impactism: A New Path For Humanity
+              Impactism: Humanity's New Framework
             </h2>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                Impactism is the structural alternative to techno-fascist control. It is an operational framework that aligns technological abundance with citizen sovereignty, redirecting network resources toward verified human-led outcomes.
+                Impactism is the antidote to centralized control. It’s a way to organize human effort so that we use technology to solve real-world problems directly, keeping power in the hands of the people.
               </p>
 
               <div className="relative w-full overflow-hidden rounded-2xl border border-border-subtle bg-[#F8F9FA] p-3 my-6 shadow-sm hover:shadow-md hover:border-text-primary transition-all duration-300">
@@ -360,8 +359,8 @@ export default function HumanPlanPage() {
                 </div>
                 {[
                   { imp: "Citizen Sovereignty", fas: "Algorithmic Control" },
-                  { imp: "Community Action Network", fas: "Centralized Monopoly" },
-                  { imp: "Human Decision Power", fas: "Automated Attention Captivity" },
+                  { imp: "Community Action", fas: "Centralized Monopoly" },
+                  { imp: "Human Decision Making", fas: "Automated Captivity" },
                   { imp: "Verified Real-World Value", fas: "Speculative Financial Extraction" }
                 ].map((row, idx) => (
                   <div key={idx} className="grid grid-cols-2 border-b border-background-alternate last:border-0 p-4 text-xs font-normal">
@@ -384,20 +383,20 @@ export default function HumanPlanPage() {
           >
             <span className="text-[10px] font-mono tracking-widest text-accent-red uppercase">Section 07</span>
             <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              The Five Principles Of Impactism
+              The Principles of Impactism
             </h2>
             <p className="text-text-secondary text-xs font-normal">
-              These five principles serve as the coordinates for the post-labor human alignment:
+              We operate on these core values:
             </p>
 
             {/* Centerpiece cards grid */}
             <div className="grid grid-cols-1 gap-6 mt-4">
               {[
-                { title: "Citizen Sovereignty", statement: "Every person has the right to participate in decisions affecting their lives." },
-                { title: "Verified Impact Over Symbolic Action", statement: "Real-world outcomes matter more than symbolic participation or online statements." },
-                { title: "Community Over Algorithm", statement: "Organized local communities are structurally stronger than recommendations systems." },
-                { title: "Universal Basic Impact Over Universal Basic Income", statement: "Contribution should be rewarded, not dependency on central system grants." },
-                { title: "Technology As Tool, Not Master", statement: "Computational resources must serve people and local ecological neighborhoods." }
+                { title: "Sovereignty", statement: "You own your data, your decisions, and your impact." },
+                { title: "Real Action", statement: "Measured, real-world results trump digital engagement." },
+                { title: "Community", statement: "Local networks thrive where big systems fail." },
+                { title: "Contribution", statement: "Rewarding active creation over passive dependency." },
+                { title: "Utility", statement: "Technology is a tool for humans to solve problems." }
               ].map((card, idx) => (
                 <div key={idx} className="bg-background-primary border border-border-subtle hover:border-text-primary rounded-2xl p-6 md:p-8 flex items-start space-x-6 shadow-sm transition-all duration-300">
                   <div className="w-12 h-12 rounded-xl bg-background-secondary border border-border-subtle flex items-center justify-center shrink-0 font-mono text-sm font-bold text-text-secondary">
@@ -423,14 +422,14 @@ export default function HumanPlanPage() {
           >
             <span className="text-[10px] font-mono tracking-widest text-accent-red uppercase">Section 08</span>
             <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              Universal Basic Impact
+              Universal Basic Impact (UBImpact)
             </h2>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                In the automated era, technologists offer <strong>Universal Basic Income (UBI)</strong> as a solution to displacement. However, direct financial distribution without active agency converts citizens into passive consumers dependent on centralized platforms.
+                Universal Basic Income is just a band-aid that keeps people passive. We need something more.
               </p>
               <p>
-                We propose <strong>Universal Basic Impact (UBImpact)</strong>. It shifts the emphasis from cash grants to contribution rewards.
+                Universal Basic Impact (UBImpact) creates a system where you are rewarded for the work you do for your community. It shifts us from being dependent consumers to active, valued contributors.
               </p>
 
               {/* UBI vs UBImpact comparison table */}
@@ -438,19 +437,17 @@ export default function HumanPlanPage() {
                 <div className="border border-border-subtle p-6 rounded-2xl bg-background-primary text-text-secondary">
                   <span className="text-[10px] font-mono text-text-muted block uppercase mb-2">Universal Basic Income</span>
                   <ul className="space-y-2 text-xs text-text-muted font-normal list-disc pl-4">
-                    <li>Passive consumer dependency</li>
-                    <li>Sovereign token distribution</li>
-                    <li>No local accountability</li>
-                    <li>Vulnerable to inflation</li>
+                    <li>Encourages dependency</li>
+                    <li>Disconnected from local needs</li>
+                    <li>Passive participation</li>
                   </ul>
                 </div>
                 <div className="border border-accent-red/30 p-6 rounded-2xl bg-background-primary shadow-sm text-text-primary">
                   <span className="text-[10px] font-mono text-accent-red block uppercase mb-2">Universal Basic Impact</span>
                   <ul className="space-y-2 text-xs text-text-primary font-semibold list-disc pl-4">
-                    <li>Active community contribution</li>
-                    <li>Resource allocation for real work</li>
-                    <li>Citizen-directed local priorities</li>
-                    <li>Verified transparency & metrics</li>
+                    <li>Rewards community contribution</li>
+                    <li>Focused on local problem solving</li>
+                    <li>Active ownership & results</li>
                   </ul>
                 </div>
               </div>
@@ -472,17 +469,17 @@ export default function HumanPlanPage() {
             </h2>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                The primary mechanism of coordination on Oulta is the <strong>Impact Stand</strong>. A Stand is not a social media comment or a digital petition. It is an active contract for local progress.
+                A "Stand" is the primary way we organize on Oulta. It isn't a social media post; it is a project with a clear goal, a deadline, and a measurable outcome. It is how we move from talk to action.
               </p>
 
               {/* Refined Flat Typographic Stand Timeline */}
               <div className="border border-border-subtle bg-background-primary rounded-xl divide-y divide-border-subtle my-6">
                 {[
-                  { step: "01 / Problem", desc: "A clear, verified local challenge is identified in the neighborhood." },
-                  { step: "02 / Target", desc: "A defined, measurable milestone for success is established." },
-                  { step: "03 / Deadline", desc: "A fixed time window is set for project execution." },
-                  { step: "04 / Mechanism", desc: "A direct delivery pipeline is deployed for action." },
-                  { step: "05 / Victory", desc: "A certified outcome victory condition is validated and recorded." }
+                  { step: "01 / Identify", desc: "Define a real local issue." },
+                  { step: "02 / Target", desc: "Set a clear goal for success." },
+                  { step: "03 / Deadline", desc: "Commit to a time-bound project." },
+                  { step: "04 / Execute", desc: "Take action to deliver results." },
+                  { step: "05 / Validate", desc: "Verify that the goal was met." }
                 ].map((item, idx) => (
                   <div key={idx} className="p-4 flex flex-col md:flex-row md:items-center md:justify-between text-xs gap-2 hover:bg-background-secondary transition-colors duration-200">
                     <span className="font-semibold text-text-primary font-mono">{item.step}</span>
@@ -508,7 +505,7 @@ export default function HumanPlanPage() {
             </h2>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                When citizens, NGOs, and local companies coordinate directly through automated open protocols, we achieve the <strong>Impactism Singularity</strong>: the point where collective human power out-scales centralized authority.
+                When individuals and local communities use these tools to coordinate, we achieve the Impactism Singularity—a moment where collective human action becomes more powerful than centralized authority.
               </p>
 
               {/* Refined Flat Static Typographic Convergence Model (No startup SVG animation particles) */}
@@ -516,7 +513,7 @@ export default function HumanPlanPage() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
                   {/* Left inputs */}
                   <div className="flex flex-col gap-2 w-full md:w-auto">
-                    {["Citizens", "NGOs", "Companies", "AI As Tool"].map((input, idx) => (
+                    {["People", "Communities", "Local Groups", "AI Tools"].map((input, idx) => (
                       <div key={idx} className="bg-background-secondary border border-border-subtle px-4 py-2 rounded-lg text-xs font-mono text-text-secondary text-center md:text-left">
                         {input}
                       </div>
@@ -542,7 +539,7 @@ export default function HumanPlanPage() {
                 </div>
               </div>
 
-              <p className="text-text-secondary leading-relaxed font-normal">
+              <p>
                 This convergence represents the return of sovereignty back to human networks. It offers a hopeful, robust path forward for global civilization.
               </p>
             </div>
