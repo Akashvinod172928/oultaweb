@@ -307,18 +307,28 @@ export default function HumanPlanPage() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           >
             <span className="text-[10px] font-mono tracking-widest text-accent-red uppercase">Section 05</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-text-primary leading-none tracking-tight max-w-xl">
-              We choose a new path: Citizen-led, technology-enabled.
+            <h2 className="text-3xl md:text-4xl font-bold text-text-primary leading-tight max-w-xl">
+              The Human Plan
             </h2>
+            <p className="text-sm text-text-secondary max-w-lg font-normal">
+              A simple, three-step framework to put people back in control:
+            </p>
             
-            <div className="grid grid-cols-3 gap-4 max-w-md w-full my-4 text-xs font-semibold uppercase tracking-wider font-mono">
-              <div className="border border-border-subtle p-3 rounded-lg bg-background-primary text-text-secondary">Organization</div>
-              <div className="border border-border-subtle p-3 rounded-lg bg-background-primary text-text-secondary">Participation</div>
-              <div className="border border-border-subtle p-3 rounded-lg bg-background-primary text-text-secondary">Collective Action</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full my-6">
+              {[
+                { title: "1. Organize", desc: "Connect local communities around real needs." },
+                { title: "2. Take a Stand", desc: "Launch projects with clear goals and deadlines." },
+                { title: "3. Make an Impact", desc: "Use tech tools to reward actual progress." }
+              ].map((step, idx) => (
+                <div key={idx} className="bg-background-secondary border border-border-subtle hover:border-text-primary rounded-xl p-5 text-center flex flex-col space-y-2 transition-all duration-300">
+                  <span className="font-bold text-sm text-text-primary">{step.title}</span>
+                  <p className="text-xs text-text-secondary leading-relaxed font-normal">{step.desc}</p>
+                </div>
+              ))}
             </div>
 
-            <p className="text-sm text-text-secondary leading-relaxed max-w-xl font-normal">
-              We aren't fighting technology; we are reclaiming it. By focusing on direct community action, we ensure that the digital future works for all people, not just a few owners.
+            <p className="text-xs text-text-muted leading-relaxed max-w-xl font-normal italic">
+              "We don't fight technology—we use it to build community power."
             </p>
           </motion.article>
 
