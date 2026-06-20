@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { ArrowLeft, ArrowRight, Menu, X } from "lucide-react";
 
 interface TOCItem {
   id: string;
@@ -12,20 +12,22 @@ interface TOCItem {
 }
 
 const tocItems: TOCItem[] = [
-  { id: "world-changing", label: "1. The Changing World" },
-  { id: "old-politics", label: "2. The Old Political World" },
-  { id: "ai-changes", label: "3. What AI Changes" },
+  { id: "our-history", label: "1. Our History" },
+  { id: "existing-spectrum", label: "2. The Existing Human Spectrum" },
+  { id: "ai-agi", label: "3. AI and AGI" },
   { id: "techno-fascism", label: "4. The Rise of Techno-Fascism" },
-  { id: "human-plan-turn", label: "5. The Human Plan" },
-  { id: "impactism-concept", label: "6. Impactism" },
-  { id: "five-principles", label: "7. The Five Principles" },
-  { id: "ubi-vs-ubimpact", label: "8. Universal Basic Impact" },
-  { id: "impact-stand", label: "9. The Impact Stand" },
-  { id: "singularity", label: "10. The Singularity" },
+  { id: "impactism", label: "5. Impactism" },
+  { id: "ecosystem", label: "6. The Impactism Ecosystem" },
+  { id: "rebuilding-india", label: "7. Rebuilding India" },
+  { id: "if-we-fail", label: "8. What Happens If We Fail?" },
+  { id: "message-indians", label: "9. A Message to All Indians" },
+  { id: "singularity", label: "10. The Impactism Singularity" },
 ];
 
+
 export default function HumanPlanPage() {
-  const [activeSection, setActiveSection] = useState("world-changing");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("our-history");
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -33,8 +35,17 @@ export default function HumanPlanPage() {
     restDelta: 0.001
   });
 
-  // Track active section via Intersection Observer
+  // Track active section via Intersection Observer & scroll position
   useEffect(() => {
+    const handleScroll = () => {
+      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 120;
+      if (isAtBottom) {
+        setActiveSection("singularity");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
     const observers = tocItems.map((item) => {
       const el = document.getElementById(item.id);
       if (!el) return null;
@@ -42,13 +53,14 @@ export default function HumanPlanPage() {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+            const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 120;
+            if (entry.isIntersecting && !isAtBottom) {
               setActiveSection(item.id);
             }
           });
         },
         { 
-          rootMargin: "-20% 0px -60% 0px", // Focus on upper-middle scroll area
+          rootMargin: "-15% 0px -55% 0px",
           threshold: 0
         }
       );
@@ -58,6 +70,7 @@ export default function HumanPlanPage() {
     });
 
     return () => {
+      window.removeEventListener("scroll", handleScroll);
       observers.forEach((obs) => {
         if (obs) obs.observer.unobserve(obs.el);
       });
@@ -80,27 +93,79 @@ export default function HumanPlanPage() {
         style={{ scaleX }}
       />
 
-      {/* Top Banner Header */}
-      <header className="sticky top-0 w-full z-50 border-b border-border-subtle backdrop-blur-md bg-background-primary/75">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-text-secondary hover:text-text-primary transition-colors group">
-            <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
-            <span>Back to HQ</span>
+      {/* Navigation Header */}
+      <header className="sticky top-0 w-full z-50 backdrop-blur-md bg-background-primary/75">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            <Image
+              src="/assets/Untitled design (6).svg"
+              alt="Oulta Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8 object-contain group-hover:scale-110 transition-transform duration-300"
+            />
+            <span className="text-2xl font-bold tracking-tight text-text-primary">Oulta</span>
           </Link>
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-lg tracking-tight text-text-primary">Oulta</span>
-            <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#D0021B] to-[#4F46E5]" />
+
+          {/* Center/Middle: The Human Plan Link (for desktop) */}
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center">
+            <Link 
+              href="/human-plan" 
+              className="px-4 py-2 text-xs font-bold uppercase tracking-wider border border-text-primary/10 hover:border-text-primary/30 bg-white/40 backdrop-blur-sm transition-all duration-200 text-center flex items-center justify-center hover:scale-105"
+            >
+              <span className="gradient-text">The Human Plan</span>
+            </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-text-secondary hover:text-text-primary transition-colors focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </header>
+
+      {/* Mobile Navigation Panel */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-16 left-0 w-full bg-background-primary border-b border-border-subtle shadow-lg z-40 py-6 px-6 flex flex-col space-y-4 md:hidden"
+          >
+            <Link 
+              href="/human-plan" 
+              onClick={() => setMobileMenuOpen(false)} 
+              className="text-xs font-semibold tracking-wide uppercase text-text-primary py-2 font-bold"
+            >
+              The Human Plan
+            </Link>
+            <a
+              href="https://www.oulta.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-[#D0021B] to-[#4F46E5] text-white block"
+            >
+              Enter Oulta
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Header Topic Section */}
       <section className="bg-background-secondary border-b border-border-subtle py-24 md:py-36 text-center">
         <div className="max-w-3xl mx-auto px-6 flex flex-col items-center space-y-3">
-          <h1 className="text-5xl md:text-7xl font-bold text-text-primary leading-[1.1] tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] tracking-tight gradient-text">
             The Human Plan
           </h1>
-          <h3 className="text-xl md:text-2xl font-normal text-accent-red italic pt-1">
+          <h3 className="text-xl md:text-2xl font-normal text-text-primary italic pt-1">
             Not simple. But necessary.
           </h3>
         </div>
@@ -140,129 +205,182 @@ export default function HumanPlanPage() {
         </aside>
 
         {/* Narrative Columns (Centralized optimized reading width) */}
-        <main className="col-span-1 lg:col-span-9 flex flex-col space-y-16 lg:pl-6 max-w-3xl mx-auto lg:mx-0">
+        <main className="col-span-1 lg:col-span-9 flex flex-col space-y-20 lg:pl-6 max-w-3xl mx-auto lg:mx-0">
           
-          {/* SECTION 1: THE WORLD IS CHANGING */}
+          {/* SECTION 1: OUR HISTORY */}
           <motion.article 
-            id="world-changing" 
+            id="our-history" 
             className="scroll-m-24 flex flex-col space-y-4"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-12%" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           >
-            <span className="text-[10px] font-mono tracking-widest text-accent-red uppercase">Section 01</span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              The World Is Changing
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 01</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              Our History
             </h2>
+            <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
+              Our greatest technology has always been each other.
+            </h3>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                We are living through a massive shift in human history. Artificial intelligence is changing how we work, create value, and distribute resources.
+                Humanity did not become the dominant species because we were the strongest.
               </p>
               <p>
-                As machines take over cognitive tasks, job automation is no longer a future threat—it is today's reality. Traditional systems, designed for a physical labor economy, can no longer sustain us.
-              </p>
-              <blockquote className="border-l-2 border-text-primary bg-background-secondary pl-6 my-6 py-4 max-w-2xl">
-                <p className="text-lg md:text-xl italic text-text-primary font-normal leading-relaxed">
-                  &ldquo;We face a structural transition. When intelligence becomes cheap and abundant, the systems linking human survival to labor collapse.&rdquo;
-                </p>
-              </blockquote>
-              <p>
-                This is not just a technology problem. It is a challenge of how humans organize and work together.
-              </p>
-            </div>
-          </motion.article>
-
-          {/* SECTION 2: THE OLD POLITICAL WORLD */}
-          <motion.article 
-            id="old-politics" 
-            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-10"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-12%" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-          >
-            <span className="text-[10px] font-mono tracking-widest text-accent-indigo uppercase">Section 02</span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              The Old Political World
-            </h2>
-            <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
-              <p>
-                For over two hundred years, politics existed on a single line: the struggle between <strong>Communism</strong> and <strong>Capitalism</strong>.
-              </p>
-              <p>
-                While opposite, both systems relied on the same assumption: humans had to work to produce value. Communism wanted the state to run this labor; Capitalism wanted private markets to coordinate it.
+                We survived because we learned to cooperate.
               </p>
               
-              <div className="relative w-full overflow-hidden rounded-2xl border border-border-subtle bg-[#F8F9FA] p-3 my-6 shadow-sm hover:shadow-md hover:border-text-primary transition-all duration-300">
-                <Image
-                  src="/assets/current-human-spectrum.png"
-                  alt="The Current Human Spectrum"
-                  width={1024}
-                  height={436}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-w-7xl) 100vw, 768px"
-                />
+              <div className="border border-border-subtle bg-background-secondary p-6 rounded-none my-6 flex flex-col space-y-2 font-mono text-xs">
+                <div className="flex items-center space-x-2">
+                  <span className="text-accent-red font-bold">Families</span> 
+                  <span className="text-text-muted">──→</span> 
+                  <span className="text-[#4F46E5] font-bold">Tribes</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-[#4F46E5] font-bold">Tribes</span> 
+                  <span className="text-text-muted">──→</span> 
+                  <span className="text-accent-indigo font-bold">Communities</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-accent-indigo font-bold">Communities</span> 
+                  <span className="text-text-muted">──→</span> 
+                  <span className="text-text-primary font-bold">Civilizations</span>
+                </div>
               </div>
 
               <p>
-                As AI begins to manage both production and organization, these old models—which are tied entirely to human labor—no longer hold the answers we need.
+                For thousands of years, our greatest advantage was our ability to work together.
               </p>
             </div>
           </motion.article>
 
-          {/* SECTION 3: WHAT AI CHANGES */}
+          {/* SECTION 2: THE EXISTING HUMAN SPECTRUM */}
           <motion.article 
-            id="ai-changes" 
-            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-10"
+            id="existing-spectrum" 
+            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-12"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-12%" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           >
-            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase">Section 03</span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              What AI Changes
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 02</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              The Existing Human Spectrum
             </h2>
+            <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
+              For over two centuries, politics lived on one spectrum.
+            </h3>
+            
+            <div className="relative w-full overflow-hidden border border-border-subtle bg-[#F8F9FA] p-3 my-6 rounded-none">
+              <Image
+                src="/assets/current-human-spectrum.png"
+                alt="The Current Human Spectrum"
+                width={1024}
+                height={436}
+                className="w-full h-auto object-contain"
+                sizes="(max-w-7xl) 100vw, 768px"
+              />
+            </div>
+
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                AI changes who holds the cards. Democracy has historically relied on taxing human labor to fund public needs, but as machines take on more roles, that leverage disappears.
+                Communism. Capitalism. Everything in between.
               </p>
               <p>
-                Power is shifting toward the few who own the compute, the models, and the data. Unless we change course, the average person loses their seat at the table.
+                Different systems built on the same assumption:
               </p>
+              <blockquote className="border-l-2 border-text-primary bg-background-secondary pl-6 my-6 py-4 max-w-2xl">
+                <p className="text-lg md:text-xl italic text-text-primary font-semibold leading-relaxed">
+                  &ldquo;Human labor creates value.&rdquo;
+                </p>
+              </blockquote>
+              <p>
+                For generations, this assumption shaped governments, economies, and societies across the world. Today, that assumption is beginning to change.
+              </p>
+            </div>
+          </motion.article>
+
+          {/* SECTION 3: AI AND AGI */}
+          <motion.article 
+            id="ai-agi" 
+            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-12"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-12%" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+          >
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 03</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              AI and AGI
+            </h2>
+            <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
+              A new form of intelligence has arrived.
+            </h3>
+            <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
+              <p>
+                Artificial Intelligence can automate labor.
+              </p>
+              <p>
+                Artificial General Intelligence may automate intelligence itself.
+              </p>
+              <p>
+                The question is no longer who owns the factory.
+              </p>
+              <p>
+                The question is who owns the intelligence infrastructure of the future.
+              </p>
+              <blockquote className="border-l-2 border-text-primary bg-background-secondary pl-6 my-6 py-4 max-w-2xl">
+                <p className="text-base italic text-text-primary font-medium leading-relaxed">
+                  As intelligence becomes abundant, power naturally shifts toward those who control it.
+                </p>
+              </blockquote>
             </div>
           </motion.article>
 
           {/* SECTION 4: THE RISE OF TECHNO-FASCISM */}
           <motion.article 
             id="techno-fascism" 
-            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-10"
+            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-12"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-12%" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           >
-            <span className="text-[10px] font-mono tracking-widest text-accent-red uppercase">Section 04</span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              The Rise Of Techno-Fascism
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 04</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              The Rise of Techno-Fascism
             </h2>
-            <p className="text-text-secondary text-sm font-normal">
-              Without a framework for citizen-directed impact, technological concentration naturally settles into centralized systems of control:
-            </p>
+            <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
+              Without collective control, power centralizes.
+            </h3>
 
-            <div className="relative w-full overflow-hidden rounded-2xl border border-border-subtle bg-[#F8F9FA] p-3 my-6 shadow-sm hover:shadow-md hover:border-text-primary transition-all duration-300">
+            <div className="relative w-full overflow-hidden border border-border-subtle bg-[#F8F9FA] p-3 my-6 rounded-none">
               <Image
                 src="/assets/upcoming-political-spectrum.png"
                 alt="The Upcoming Political Spectrum"
                 width={1024}
                 height={544}
-                className="w-full h-auto object-contain rounded-xl"
+                className="w-full h-auto object-contain"
                 sizes="(max-w-7xl) 100vw, 768px"
               />
             </div>
 
-            {/* Typography-first Cards (No detailed SVG illustrations) */}
+            <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
+              <p>
+                AI is not the threat. Concentrated control is.
+              </p>
+              <p>
+                When a small group controls intelligence infrastructure, they gain unprecedented influence over information, economies, and public life.
+              </p>
+              <p>
+                This is Techno-Fascism.
+              </p>
+              <p className="font-semibold text-text-primary">
+                Not government control. Not corporate control. But infrastructure control.
+              </p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
               {[
                 { 
@@ -286,7 +404,7 @@ export default function HumanPlanPage() {
                   desc: "A small number of infrastructure providers manage identity, transaction pathways, and access rules for the global web."
                 }
               ].map((block, idx) => (
-                <div key={idx} className="bg-background-primary border border-border-subtle hover:border-text-primary rounded-xl p-6 flex flex-col space-y-3 transition-colors duration-300">
+                <div key={idx} className="bg-background-primary border border-border-subtle hover:border-text-primary rounded-none p-6 flex flex-col space-y-3 transition-colors duration-300">
                   <span className="font-mono text-xs font-semibold text-text-label uppercase tracking-widest">{block.index}</span>
                   <div className="flex flex-col space-y-1">
                     <h3 className="text-sm font-semibold text-text-primary">{block.title}</h3>
@@ -295,295 +413,321 @@ export default function HumanPlanPage() {
                 </div>
               ))}
             </div>
+
+            <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal pt-4">
+              <p>
+                The techno-fascist does not need an army. They need servers.
+              </p>
+              <p>
+                They do not need prisons. They need algorithms.
+              </p>
+            </div>
           </motion.article>
 
-          {/* SECTION 5: THE HUMAN PLAN (TURNING POINT) */}
+          {/* SECTION 5: IMPACTISM */}
           <motion.article 
-            id="human-plan-turn" 
-            className="scroll-m-24 flex flex-col space-y-6 border-t border-border-subtle pt-10 text-center items-center"
+            id="impactism" 
+            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-12"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-12%" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           >
-            <span className="text-[10px] font-mono tracking-widest text-accent-red uppercase">Section 05</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-text-primary leading-tight max-w-xl">
-              The Human Plan
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 05</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              Impactism
             </h2>
-            <p className="text-sm text-text-secondary max-w-lg font-normal">
-              A simple, three-step framework to put people back in control:
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full my-6">
+            <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
+              A new path for humanity in the age of AI.
+            </h3>
+
+            <div className="relative w-full overflow-hidden border border-border-subtle bg-[#F8F9FA] p-3 my-6 rounded-none">
+              <Image
+                src="/assets/impactism-vision-spectrum.png"
+                alt="The Impactism Vision Spectrum"
+                width={1024}
+                height={561}
+                className="w-full h-auto object-contain"
+                sizes="(max-w-7xl) 100vw, 768px"
+              />
+            </div>
+
+            <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
+              <p>
+                Impactism is a framework built on a simple belief:
+              </p>
+              <blockquote className="border-l-2 border-[#4F46E5] bg-background-secondary pl-6 my-4 py-3">
+                <p className="text-base italic text-text-primary font-semibold">
+                  Technology should serve humanity. Humanity should not serve technology.
+                </p>
+              </blockquote>
+              <p>
+                Impactism moves beyond the old left-right political spectrum and focuses on citizen sovereignty, community coordination, verified impact, and accountable technology.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
               {[
-                { title: "1. Organize", desc: "Connect local communities around real needs." },
-                { title: "2. Take a Stand", desc: "Launch projects with clear goals and deadlines." },
-                { title: "3. Make an Impact", desc: "Use tech tools to reward actual progress." }
-              ].map((step, idx) => (
-                <div key={idx} className="bg-background-secondary border border-border-subtle hover:border-text-primary rounded-xl p-5 text-center flex flex-col space-y-2 transition-all duration-300">
-                  <span className="font-bold text-sm text-text-primary">{step.title}</span>
-                  <p className="text-xs text-text-secondary leading-relaxed font-normal">{step.desc}</p>
+                { title: "People over algorithms", desc: "Decisions made by humans, supported by tools." },
+                { title: "Community over isolation", desc: "Local networks built on trust and shared work." },
+                { title: "Impact over passive consumption", desc: "Rewarding active creation over passive distraction." }
+              ].map((item, idx) => (
+                <div key={idx} className="bg-background-secondary border border-border-subtle p-5 rounded-none flex flex-col space-y-2">
+                  <span className="font-bold text-xs text-text-primary">{item.title}</span>
+                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">{item.desc}</p>
                 </div>
               ))}
             </div>
 
-            <p className="text-xs text-text-muted leading-relaxed max-w-xl font-normal italic">
-              "We don't fight technology—we use it to build community power."
+            <p className="text-sm text-text-secondary leading-relaxed pt-2">
+              Technology as a tool, not a master.
             </p>
           </motion.article>
 
-          {/* SECTION 6: IMPACTISM CONCEPT */}
+          {/* SECTION 6: THE IMPACTISM ECOSYSTEM */}
           <motion.article 
-            id="impactism-concept" 
-            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-10"
+            id="ecosystem" 
+            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-12"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-12%" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           >
-            <span className="text-[10px] font-mono tracking-widest text-accent-indigo uppercase">Section 06</span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              Impactism: Humanity's New Framework
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 06</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              The Impactism Ecosystem
             </h2>
+            <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
+              Collective impact requires collective infrastructure.
+            </h3>
+
+            {/* Minimal Ecosystem Diagram */}
+            <div className="border border-border-subtle bg-[#F8F9FA] p-8 my-6 rounded-none">
+              <div className="max-w-md mx-auto relative flex flex-col items-center">
+                {/* NGOs Box */}
+                <div className="bg-background-primary border border-border-subtle px-6 py-3 rounded-none text-xs font-mono text-text-primary font-semibold text-center z-10 w-36">
+                  NGOs
+                </div>
+                
+                {/* Connecting Lines Container */}
+                <div className="w-full h-12 relative">
+                  <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="50%" y1="0%" x2="16.6%" y2="100%" stroke="var(--border-subtle, #e5e7eb)" strokeWidth="1.5" strokeDasharray="3 3" />
+                    <line x1="50%" y1="0%" x2="50%" y2="100%" stroke="var(--border-subtle, #e5e7eb)" strokeWidth="1.5" strokeDasharray="3 3" />
+                    <line x1="50%" y1="0%" x2="83.3%" y2="100%" stroke="var(--border-subtle, #e5e7eb)" strokeWidth="1.5" strokeDasharray="3 3" />
+                  </svg>
+                </div>
+                
+                {/* Bottom Row: Citizens | Oulta | Companies */}
+                <div className="grid grid-cols-3 gap-4 w-full relative">
+                  {/* Citizens */}
+                  <div className="bg-background-primary border border-border-subtle px-4 py-3 rounded-none text-xs font-mono text-text-secondary text-center flex items-center justify-center min-h-[48px]">
+                    Citizens
+                  </div>
+                  {/* Oulta (Center) */}
+                  <div className="bg-white border-2 border-text-primary px-4 py-3 rounded-none text-xs font-mono text-text-primary font-bold text-center z-10 flex items-center justify-center min-h-[48px]">
+                    <span className="gradient-text">Oulta</span>
+                  </div>
+                  {/* Companies */}
+                  <div className="bg-background-primary border border-border-subtle px-4 py-3 rounded-none text-xs font-mono text-text-secondary text-center flex items-center justify-center min-h-[48px]">
+                    Companies
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                Impactism is the antidote to centralized control. It’s a way to organize human effort so that we use technology to solve real-world problems directly, keeping power in the hands of the people.
+                At the center is Oulta.
               </p>
-
-              <div className="relative w-full overflow-hidden rounded-2xl border border-border-subtle bg-[#F8F9FA] p-3 my-6 shadow-sm hover:shadow-md hover:border-text-primary transition-all duration-300">
-                <Image
-                  src="/assets/impactism-vision-spectrum.png"
-                  alt="The Impactism Vision Spectrum"
-                  width={1024}
-                  height={561}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-w-7xl) 100vw, 768px"
-                />
-              </div>
-
-              {/* Comparison table */}
-              <div className="border border-border-subtle rounded-2xl overflow-hidden my-6 bg-background-primary">
-                <div className="grid grid-cols-2 border-b border-border-subtle bg-background-secondary text-[10px] font-mono font-bold tracking-wider uppercase p-3">
-                  <div className="text-text-primary">Impactism</div>
-                  <div className="text-text-label">Techno-Fascism</div>
-                </div>
-                {[
-                  { imp: "Citizen Sovereignty", fas: "Algorithmic Control" },
-                  { imp: "Community Action", fas: "Centralized Monopoly" },
-                  { imp: "Human Decision Making", fas: "Automated Captivity" },
-                  { imp: "Verified Real-World Value", fas: "Speculative Financial Extraction" }
-                ].map((row, idx) => (
-                  <div key={idx} className="grid grid-cols-2 border-b border-background-alternate last:border-0 p-4 text-xs font-normal">
-                    <div className="font-semibold text-accent-indigo">{row.imp}</div>
-                    <div className="text-text-muted">{row.fas}</div>
-                  </div>
-                ))}
+              <ul className="space-y-2 list-none pl-0">
+                <li className="flex items-start space-x-2">
+                  <span className="text-accent-red font-mono text-xs font-bold pt-1">▪</span>
+                  <span><strong>Citizens</strong> identify problems.</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-[#4F46E5] font-mono text-xs font-bold pt-1">▪</span>
+                  <span><strong>NGOs</strong> provide expertise.</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-accent-indigo font-mono text-xs font-bold pt-1">▪</span>
+                  <span><strong>Companies</strong> provide resources.</span>
+                </li>
+              </ul>
+              <p>
+                Communities create action. Together they create measurable impact.
+              </p>
+              <p className="font-semibold text-text-primary mt-6">
+                The goal is simple:
+              </p>
+              <div className="border-l border-border-subtle pl-4 font-mono text-xs text-text-secondary space-y-1 py-1">
+                <p>Turn concern into coordination.</p>
+                <p>Turn coordination into impact.</p>
               </div>
             </div>
           </motion.article>
 
-          {/* SECTION 7: THE FIVE PRINCIPLES */}
+          {/* SECTION 7: REBUILDING INDIA */}
           <motion.article 
-            id="five-principles" 
-            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-10"
+            id="rebuilding-india" 
+            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-12"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-12%" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           >
-            <span className="text-[10px] font-mono tracking-widest text-accent-red uppercase">Section 07</span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              The Principles of Impactism
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 07</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              Rebuilding India
             </h2>
-            <p className="text-text-secondary text-xs font-normal">
-              We operate on these core values:
-            </p>
-
-            {/* Centerpiece cards grid */}
-            <div className="grid grid-cols-1 gap-6 mt-4">
-              {[
-                { title: "Sovereignty", statement: "You own your data, your decisions, and your impact." },
-                { title: "Real Action", statement: "Measured, real-world results trump digital engagement." },
-                { title: "Community", statement: "Local networks thrive where big systems fail." },
-                { title: "Contribution", statement: "Rewarding active creation over passive dependency." },
-                { title: "Utility", statement: "Technology is a tool for humans to solve problems." }
-              ].map((card, idx) => (
-                <div key={idx} className="bg-background-primary border border-border-subtle hover:border-text-primary rounded-2xl p-6 md:p-8 flex items-start space-x-6 shadow-sm transition-all duration-300">
-                  <div className="w-12 h-12 rounded-xl bg-background-secondary border border-border-subtle flex items-center justify-center shrink-0 font-mono text-sm font-bold text-text-secondary">
-                    0{idx + 1}
-                  </div>
-                  <div className="flex flex-col space-y-1">
-                    <h3 className="text-lg font-bold text-text-primary">{card.title}</h3>
-                    <p className="text-xs text-text-secondary leading-relaxed font-normal">{card.statement}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.article>
-
-          {/* SECTION 8: UNIVERSAL BASIC IMPACT */}
-          <motion.article 
-            id="ubi-vs-ubimpact" 
-            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-10"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-12%" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-          >
-            <span className="text-[10px] font-mono tracking-widest text-accent-red uppercase">Section 08</span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              Universal Basic Impact (UBImpact)
-            </h2>
+            <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
+              A developed India. Built on impact.
+            </h3>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                Universal Basic Income is just a band-aid that keeps people passive. We need something more.
+                India is home to the world's largest democracy.
               </p>
               <p>
-                Universal Basic Impact (UBImpact) creates a system where you are rewarded for the work you do for your community. It shifts us from being dependent consumers to active, valued contributors.
+                Its greatest strength is not its government. Not its corporations. Not its technology.
               </p>
-
-              {/* UBI vs UBImpact comparison table */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-                <div className="border border-border-subtle p-6 rounded-2xl bg-background-primary text-text-secondary">
-                  <span className="text-[10px] font-mono text-text-muted block uppercase mb-2">Universal Basic Income</span>
-                  <ul className="space-y-2 text-xs text-text-muted font-normal list-disc pl-4">
-                    <li>Encourages dependency</li>
-                    <li>Disconnected from local needs</li>
-                    <li>Passive participation</li>
-                  </ul>
+              <p className="text-text-primary font-bold">
+                Its people.
+              </p>
+              <p>
+                Impactism begins with a simple mission:
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+                <div className="border border-border-subtle p-5 rounded-none bg-[#F8F9FA]">
+                  <span className="font-mono text-[10px] text-text-muted block uppercase mb-1">Step 01</span>
+                  <span className="font-bold text-xs text-text-primary block mb-1">Rebuild Civic Participation</span>
+                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Empowering ordinary citizens to drive public conversation.</p>
                 </div>
-                <div className="border border-accent-red/30 p-6 rounded-2xl bg-background-primary shadow-sm text-text-primary">
-                  <span className="text-[10px] font-mono text-accent-red block uppercase mb-2">Universal Basic Impact</span>
-                  <ul className="space-y-2 text-xs text-text-primary font-semibold list-disc pl-4">
-                    <li>Rewards community contribution</li>
-                    <li>Focused on local problem solving</li>
-                    <li>Active ownership & results</li>
-                  </ul>
+                <div className="border border-border-subtle p-5 rounded-none bg-[#F8F9FA]">
+                  <span className="font-mono text-[10px] text-text-muted block uppercase mb-1">Step 02</span>
+                  <span className="font-bold text-xs text-text-primary block mb-1">Strengthen Communities</span>
+                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Connecting local groups around shared, immediate objectives.</p>
+                </div>
+                <div className="border border-border-subtle p-5 rounded-none bg-[#F8F9FA]">
+                  <span className="font-mono text-[10px] text-text-muted block uppercase mb-1">Step 03</span>
+                  <span className="font-bold text-xs text-text-primary block mb-1">Solve Local Problems</span>
+                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Tackling hyper-local infrastructure and societal challenges.</p>
+                </div>
+                <div className="border border-border-subtle p-5 rounded-none bg-[#F8F9FA]">
+                  <span className="font-mono text-[10px] text-text-muted block uppercase mb-1">Step 04</span>
+                  <span className="font-bold text-xs text-text-primary block mb-1">Create Measurable Impact</span>
+                  <p className="text-[11px] text-text-secondary leading-relaxed font-normal">Using transparent metrics to reward civic progress.</p>
                 </div>
               </div>
+              <p className="font-mono text-xs text-text-muted italic pt-2">
+                One stand at a time. One community at a time. One district at a time.
+              </p>
             </div>
           </motion.article>
 
-          {/* SECTION 9: THE IMPACT STAND */}
+          {/* SECTION 8: WHAT HAPPENS IF WE FAIL? */}
           <motion.article 
-            id="impact-stand" 
-            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-10"
+            id="if-we-fail" 
+            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-12"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-12%" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           >
-            <span className="text-[10px] font-mono tracking-widest text-accent-indigo uppercase">Section 09</span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              The Impact Stand
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 08</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              What Happens If We Fail?
             </h2>
+            <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
+              If we fail to act together, this is our future.
+            </h3>
             <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                A "Stand" is the primary way we organize on Oulta. It isn't a social media post; it is a project with a clear goal, a deadline, and a measurable outcome. It is how we move from talk to action.
+                A future where power becomes increasingly centralized.
               </p>
-
-              {/* Refined Flat Typographic Stand Timeline */}
-              <div className="border border-border-subtle bg-background-primary rounded-xl divide-y divide-border-subtle my-6">
-                {[
-                  { step: "01 / Identify", desc: "Define a real local issue." },
-                  { step: "02 / Target", desc: "Set a clear goal for success." },
-                  { step: "03 / Deadline", desc: "Commit to a time-bound project." },
-                  { step: "04 / Execute", desc: "Take action to deliver results." },
-                  { step: "05 / Validate", desc: "Verify that the goal was met." }
-                ].map((item, idx) => (
-                  <div key={idx} className="p-4 flex flex-col md:flex-row md:items-center md:justify-between text-xs gap-2 hover:bg-background-secondary transition-colors duration-200">
-                    <span className="font-semibold text-text-primary font-mono">{item.step}</span>
-                    <span className="text-text-secondary md:text-right font-normal">{item.desc}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.article>
-
-          {/* SECTION 10: THE SINGULARITY */}
-          <motion.article 
-            id="singularity" 
-            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-10"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-12%" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-          >
-            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase">Section 10</span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-text-primary">
-              The Impactism Singularity
-            </h2>
-            <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
               <p>
-                When individuals and local communities use these tools to coordinate, we achieve the Impactism Singularity—a moment where collective human action becomes more powerful than centralized authority.
+                A future where citizens become spectators.
               </p>
-
-              {/* Refined Flat Static Typographic Convergence Model (No startup SVG animation particles) */}
-              <div className="border border-border-subtle bg-background-primary rounded-xl p-6 md:p-8 my-6">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
-                  {/* Left inputs */}
-                  <div className="flex flex-col gap-2 w-full md:w-auto">
-                    {["People", "Communities", "Local Groups", "AI Tools"].map((input, idx) => (
-                      <div key={idx} className="bg-background-secondary border border-border-subtle px-4 py-2 rounded-lg text-xs font-mono text-text-secondary text-center md:text-left">
-                        {input}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Arrow indicator */}
-                  <div className="flex flex-col items-center justify-center text-text-muted font-mono select-none py-2 shrink-0">
-                    <span className="text-lg hidden md:block">──────→</span>
-                    <span className="text-lg md:hidden">↓</span>
-                  </div>
-
-                  {/* Right target */}
-                  <div className="flex flex-col items-center justify-center w-full md:w-auto flex-1 md:max-w-[280px]">
-                    <div className="bg-gradient-to-r from-[#D0021B] to-[#4F46E5] text-white font-bold px-6 py-3 rounded-lg text-xs uppercase tracking-wider text-center w-full shadow-sm">
-                      Collective Human Power
-                    </div>
-                    <div className="h-4 w-[1px] bg-border-subtle" />
-                    <div className="bg-text-primary text-background-primary font-mono text-[10px] tracking-widest px-4 py-2 rounded-full uppercase text-center w-full">
-                      Civic Sovereignty
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               <p>
-                This convergence represents the return of sovereignty back to human networks. It offers a hopeful, robust path forward for global civilization.
+                A future where communities lose influence.
+              </p>
+              <p>
+                A future where algorithms become more powerful than people.
+              </p>
+              <blockquote className="border-l-2 border-accent-red bg-[#FFF5F5] pl-6 my-6 py-4 max-w-2xl">
+                <p className="text-lg md:text-xl italic text-accent-red font-bold leading-relaxed">
+                  &ldquo;Techno-Fascism is not inevitable. But neither is freedom.&rdquo;
+                </p>
+              </blockquote>
+              <p>
+                The future depends on what we build together.
               </p>
             </div>
           </motion.article>
 
-          {/* FINAL SECTION & CTAs */}
+          {/* SECTION 9: A MESSAGE TO ALL INDIANS & FINAL CTA */}
           <motion.article 
-            className="scroll-m-24 flex flex-col space-y-8 border-t border-border-subtle pt-16 pb-12 text-center items-center"
+            id="message-indians" 
+            className="scroll-m-24 flex flex-col space-y-8 border-t border-border-subtle pt-12 pb-12 text-center items-center"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           >
-            <h2 className="text-4xl md:text-[60px] leading-[1.1] tracking-tight font-bold text-text-primary max-w-xl">
-              Together We Stand. <br />
-              We Will Not Fall.
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 09</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              A Message to All Indians
             </h2>
+            <h3 className="text-xl md:text-2xl font-normal text-text-primary italic max-w-xl">
+              Stand together. For India. For humanity.
+            </h3>
             
-            <div className="flex flex-col space-y-2 max-w-lg">
-              <p className="text-sm text-text-secondary leading-relaxed font-normal">
-                The future is not a technological question alone.
+            <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal max-w-xl">
+              <p>
+                Techno-Fascism is a global threat to human sovereignty. But the solution can only come from India.
               </p>
-              <p className="text-text-primary font-bold text-sm">
-                It is a human one.
+              <p>
+                Right now, 1.5 billion people are feeding the algorithms of global tech monopolies, exporting our data to build the very infrastructure used to control us. We are fueling the rise of systems that centralize power and make human labor obsolete.
+              </p>
+              <p>
+                India must lead the transition. By redirecting the collective coordination of 1.5 billion citizens, we can build a decentralized future of civic action and human sovereignty.
+              </p>
+              <p className="text-text-primary font-bold pt-4">
+                The future of humanity belongs to those who stand together. Let us build it here.
               </p>
             </div>
+          </motion.article>
 
-            <div className="flex flex-wrap justify-center gap-4 pt-6">
-              <button className="px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-text-primary text-background-primary hover:bg-accent-red hover:scale-105 transition-all duration-300 cursor-pointer">
-                Read The Manifesto
-              </button>
-              <button className="px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-border-subtle hover:border-text-primary text-text-secondary hover:text-text-primary bg-transparent transition-all duration-300 cursor-pointer">
-                Explore Impactism
-              </button>
+          {/* SECTION 10: THE IMPACTISM SINGULARITY */}
+          <motion.article 
+            id="singularity" 
+            className="scroll-m-24 flex flex-col space-y-4 border-t border-border-subtle pt-12"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-12%" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+          >
+            <span className="text-[10px] font-mono tracking-widest text-[#4F46E5] uppercase font-bold">Section 10</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-text-primary">
+              The Impactism Singularity
+            </h2>
+            <h3 className="text-lg md:text-xl font-normal text-text-primary italic">
+              Humanity's next great transition.
+            </h3>
+            <div className="text-text-secondary space-y-4 leading-relaxed text-[15px] font-normal">
+              <p>
+                Agriculture. Industry. The Internet. Artificial Intelligence. Each transformed civilization.
+              </p>
+              <p>
+                The next transformation is not technological. It is human.
+              </p>
+              <blockquote className="border-l-2 border-[#4F46E5] bg-background-secondary pl-6 my-6 py-4 max-w-2xl">
+                <p className="text-base italic text-text-primary font-semibold leading-relaxed">
+                  The convergence of innovation, welfare, and power around a single purpose: Human progress.
+                </p>
+              </blockquote>
+              <p>
+                This is not the singularity of machines. It is the singularity of humanity.
+              </p>
             </div>
           </motion.article>
 
@@ -591,15 +735,31 @@ export default function HumanPlanPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="border-t border-border-subtle bg-background-primary py-12 z-10">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center space-x-2.5">
-            <span className="font-semibold text-lg tracking-tight text-text-primary">Oulta</span>
-            <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#D0021B] to-[#4F46E5]" />
+      <footer className="relative border-t border-border-subtle bg-background-primary py-12 z-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center space-x-3">
+              <Image
+                src="/assets/Untitled design (6).svg"
+                alt="Oulta Logo"
+                width={28}
+                height={28}
+                className="w-7 h-7 object-contain"
+              />
+              <span className="text-xl font-bold tracking-tight text-text-primary">Oulta</span>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-6 text-xs font-medium uppercase tracking-wider text-text-secondary">
+              <Link href="/human-plan" className="hover:text-text-primary transition-colors font-bold text-text-primary">The Human Plan</Link>
+              <a href="https://www.oulta.in" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">Enter Oulta</a>
+              <a href="mailto:contact@oulta.in" className="hover:text-text-primary transition-colors">Contact</a>
+            </div>
           </div>
-          <span className="text-[11px] text-text-muted font-mono">
-            &copy; {new Date().getFullYear()} Oulta. People. Impact. Change.
-          </span>
+          
+          <div className="mt-8 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between text-[11px] text-text-muted font-mono">
+            <span>Copyright &copy; {new Date().getFullYear()} Oulta.</span>
+            <span className="mt-2 md:mt-0">Infrastructure for the future.</span>
+          </div>
         </div>
       </footer>
 
