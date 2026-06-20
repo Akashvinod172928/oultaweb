@@ -26,8 +26,6 @@ const tocItems: TOCItem[] = [
 
 export default function HumanPlanPage() {
   const [activeSection, setActiveSection] = useState("world-changing");
-  const [politicalFocus, setPoliticalFocus] = useState<"communism" | "capitalism">("communism");
-  const [distributionModel, setDistributionModel] = useState<"state" | "private">("state");
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -207,47 +205,6 @@ export default function HumanPlanPage() {
                 />
               </div>
 
-              {/* Refined Typographic Spectrum Widget */}
-              <div className="border border-border-subtle bg-background-secondary rounded-xl p-6 my-6">
-                <div className="flex justify-between border-b border-border-subtle pb-3 mb-4 text-xs font-medium uppercase tracking-wider text-text-label">
-                  <span>Political Coordination Spectrum</span>
-                  <span className="text-accent-red font-semibold">Active Axiom</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {[
-                    { id: "communism", label: "Communism", focus: "State Labor" },
-                    { id: "capitalism", label: "Capitalism", focus: "Private Capital" }
-                  ].map((tab) => {
-                    const isActive = politicalFocus === tab.id;
-                    return (
-                      <button
-                        key={tab.id}
-                        onClick={() => setPoliticalFocus(tab.id as "communism" | "capitalism")}
-                        className={`text-left p-3 rounded-lg border transition-all duration-200 cursor-pointer ${
-                          isActive 
-                            ? "bg-background-primary border-text-primary shadow-sm" 
-                            : "bg-background-secondary border-transparent hover:border-border-subtle"
-                        }`}
-                      >
-                        <span className={`block text-xs font-semibold ${isActive ? "text-text-primary" : "text-text-muted"}`}>
-                          {tab.label}
-                        </span>
-                        <span className={`block text-[10px] uppercase font-mono tracking-wider mt-1 ${isActive ? "text-accent-red font-semibold" : "text-text-muted"}`}>
-                          {tab.focus}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-                
-                <div className="mt-4 pt-4 border-t border-border-subtle min-h-[48px]">
-                  <p className="text-xs text-text-secondary leading-relaxed font-normal">
-                    {politicalFocus === "communism" && "State Labor Engine: Assumes state ownership of human labor. Workers run production, and the state coordinates survival."}
-                    {politicalFocus === "capitalism" && "Private Capital Coordination: Assumes private market optimization of human labor. Workers trade labor for wages."}
-                  </p>
-                </div>
-              </div>
-
               <p>
                 When machine intelligence performs both labor execution and coordination logic, the human worker is removed from the equation, rendering the traditional spectrum obsolete.
               </p>
@@ -271,47 +228,6 @@ export default function HumanPlanPage() {
               <p>
                 Artificial intelligence is not merely a tool for optimization. It shifts the foundation beneath our political and economic institutions.
               </p>
-
-              {/* Refined Economic Distribution Model Widget */}
-              <div className="border border-border-subtle bg-background-secondary rounded-xl p-6 my-6">
-                <div className="flex justify-between border-b border-border-subtle pb-3 mb-4 text-xs font-medium uppercase tracking-wider text-text-label">
-                  <span>Economic Distribution Spectrum</span>
-                  <span className="text-accent-indigo font-semibold">Distribution Model</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {[
-                    { id: "state", label: "State Distribution", focus: "Labor Taxation" },
-                    { id: "private", label: "Private Distribution", focus: "Wages & Equity" }
-                  ].map((tab) => {
-                    const isActive = distributionModel === tab.id;
-                    return (
-                      <button
-                        key={tab.id}
-                        onClick={() => setDistributionModel(tab.id as "state" | "private")}
-                        className={`text-left p-3 rounded-lg border transition-all duration-200 cursor-pointer ${
-                          isActive 
-                            ? "bg-background-primary border-text-primary shadow-sm" 
-                            : "bg-background-secondary border-transparent hover:border-border-subtle"
-                        }`}
-                      >
-                        <span className={`block text-xs font-semibold ${isActive ? "text-text-primary" : "text-text-muted"}`}>
-                          {tab.label}
-                        </span>
-                        <span className={`block text-[10px] uppercase font-mono tracking-wider mt-1 ${isActive ? "text-accent-indigo font-semibold" : "text-text-muted"}`}>
-                          {tab.focus}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-                
-                <div className="mt-4 pt-4 border-t border-border-subtle min-h-[48px]">
-                  <p className="text-xs text-text-secondary leading-relaxed font-normal">
-                    {distributionModel === "state" && "State Distribution: Relies on taxing labor income to fund public services and safety nets. When labor is automated, the tax base collapses."}
-                    {distributionModel === "private" && "Private Distribution: Relies on workers trading time for wages in private markets. When labor is automated, workers lose coordinate leverage."}
-                  </p>
-                </div>
-              </div>
 
               <p>
                 Traditional social democracies distributed resource ownership by taxing labor income. When labor is automated, this distribution loop breaks. Power concentrates around the physical server grids, models, and data arrays—leaving citizens without systemic leverage.
