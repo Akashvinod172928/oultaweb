@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
@@ -195,6 +196,17 @@ export default function HumanPlanPage() {
                 Though structurally opposed, both systems shared a foundational axiom: they assumed that humans controlled the means of production through labor. Communism focused on state ownership of labor; Capitalism prioritized private capital coordination of labor.
               </p>
               
+              <div className="relative w-full overflow-hidden rounded-2xl border border-border-subtle bg-[#F8F9FA] p-3 my-6 shadow-sm hover:shadow-md hover:border-text-primary transition-all duration-300">
+                <Image
+                  src="/assets/current-human-spectrum.png"
+                  alt="The Current Human Spectrum"
+                  width={1024}
+                  height={436}
+                  className="w-full h-auto object-contain rounded-xl"
+                  sizes="(max-w-7xl) 100vw, 768px"
+                />
+              </div>
+
               {/* Refined Typographic Spectrum Widget */}
               <div className="border border-border-subtle bg-background-secondary rounded-xl p-6 my-6">
                 <div className="flex justify-between border-b border-border-subtle pb-3 mb-4 text-xs font-medium uppercase tracking-wider text-text-label">
@@ -324,6 +336,17 @@ export default function HumanPlanPage() {
               Without a framework for citizen-directed impact, technological concentration naturally settles into centralized systems of control:
             </p>
 
+            <div className="relative w-full overflow-hidden rounded-2xl border border-border-subtle bg-[#F8F9FA] p-3 my-6 shadow-sm hover:shadow-md hover:border-text-primary transition-all duration-300">
+              <Image
+                src="/assets/upcoming-political-spectrum.png"
+                alt="The Upcoming Political Spectrum"
+                width={1024}
+                height={544}
+                className="w-full h-auto object-contain rounded-xl"
+                sizes="(max-w-7xl) 100vw, 768px"
+              />
+            </div>
+
             {/* Typography-first Cards (No detailed SVG illustrations) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
               {[
@@ -401,6 +424,17 @@ export default function HumanPlanPage() {
               <p>
                 Impactism is the structural alternative to techno-fascist control. It is an operational framework that aligns technological abundance with citizen sovereignty, redirecting network resources toward verified human-led outcomes.
               </p>
+
+              <div className="relative w-full overflow-hidden rounded-2xl border border-border-subtle bg-[#F8F9FA] p-3 my-6 shadow-sm hover:shadow-md hover:border-text-primary transition-all duration-300">
+                <Image
+                  src="/assets/impactism-vision-spectrum.png"
+                  alt="The Impactism Vision Spectrum"
+                  width={1024}
+                  height={561}
+                  className="w-full h-auto object-contain rounded-xl"
+                  sizes="(max-w-7xl) 100vw, 768px"
+                />
+              </div>
 
               {/* Comparison table */}
               <div className="border border-border-subtle rounded-2xl overflow-hidden my-6 bg-background-primary">
